@@ -15,8 +15,8 @@ By the end of this course, we hope that you will be able to:
 ## 2. Pre-course setup :computer:
 We will be working with the open source (meaning free :partying_face:) programming language "R" and the integrated development environment (IDE) RStudio. Please download and install these in advance of the session to save yourself the hassle during the course.
 
-R (download the version that matches your operating system): https://cran.ma.imperial.ac.uk/  
-RStudio (the free version): https://posit.co/downloads/
+:arrow_right: R (download the version that matches your operating system): https://cran.ma.imperial.ac.uk/  
+:arrow_right: RStudio (the free version): https://posit.co/downloads/
 
 ## 3. Course materials :book:
 1. Download this repository to your computer as a ZIP file and unpack it.
