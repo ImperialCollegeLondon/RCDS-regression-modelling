@@ -18,6 +18,14 @@ We will be working with the open source (meaning free :partying_face:) programmi
 :arrow_right: RStudio Desktop (the free version): https://posit.co/downloads/
 
 ## 3. Course materials :book:
-1. Download this repository to your computer as a ZIP file and unpack it.
-2. Right click the file and open with RStudio.
-3. Run the code at the very top to install the required packages.
+Please run the following code to install the required packages for the session:
+```r
+list.of.packages <- c("faraway", "viridis", "tidyverse", "corrplot")
+new.packages <- list.of.packages[!(list.of.packages %in% installed.packages()[,"Package"])]
+if(length(new.packages)) install.packages(new.packages)
+
+library(faraway)
+library(viridis)
+library(tidyverse)
+library(corrplot)
+```
