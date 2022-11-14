@@ -30,3 +30,6 @@ library(tidyverse)
 library(corrplot)
 ```
 Alternatively, you can run the notebook online using Binder: [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/ImperialCollegeLondon/RCDS-regression-modelling/HEAD?urlpath=rstudio)
+
+## 4. Literature workshop
+For the workshop, we will be looking at this paper by Sin *et al* entitled "Mental health and caregiving experiences of family carers supporting people with psychosis": [link to paper](https://www.cambridge.org/core/journals/epidemiology-and-psychiatric-sciences/article/mental-health-and-caregiving-experiences-of-family-carers-supporting-people-with-psychosis/FF705DECFAC216D777B834E5D2A0180F)
