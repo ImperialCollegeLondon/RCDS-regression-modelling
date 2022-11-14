@@ -77,17 +77,16 @@ plot(pima$glucose, pima$insulin, main = "Scatterplot of insulin and glucose",
 ```
 
 
-## Simple linear regression (1 predictor variable)
+## Simple linear regression (1 independent variable)
 
-We can use `glm` to fit generalized linear models. We need to give it minimally two objects: (1) a formula specifying the model, and (2) the family.
-The formula is constructed using `y ~ x`, where `y` is the outcome or respose variable and the `x` is the predictor variable(s). The family is by default "gaussian" for linear regression but can be switched to "binomial" for logistic regression, or "poisson", etc as appropriate. For more arguments see `?glm`.
+We can use `lm` to fit linear models, we just need to give it the formula specifying the model. The formula is constructed using `y ~ x`, where `y` is the dependent variable and the `x` is the independent variable(s). For more arguments see `?lm`.
 
 ```{r}
-fit.insulin_glucose <- glm(insulin ~ glucose, data=pima) # fit model
-summary(fit.insulin_glucose)$coef # get slope (beta coefficient)
+fit.insulin_glucose <- lm(insulin ~ glucose, data=pima) # fit model
+summary(fit.insulin_glucose) # get slope (beta coefficient)
 confint(fit.insulin_glucose) # get confidence interval
 plot(insulin ~ glucose, data=pima,
-     main = "Linear regression using insulin as response and glucose as variable",
+     main = "Linear regression using insulin as dependent and glucose as independent variable",
      xlab = "Glucose level (mg/dL)",
      ylab = "Insulin level (mu U/ml)",
      pch = 16,
@@ -97,41 +96,60 @@ abline(fit.insulin_glucose)
 This tells us that the mean insulin level when glucose level = 0 is -118, with reasonable evidence that the interval -157 to -72 contains true intercept value (not informative biologically). For every unit increase of glucose, we expect the individual's insulin level to increase by 2.23 with a 95% confidence interval of 1.92 and 2.55, which is a relatively large effect, with a strong evidence (p-value=8.51e-37). 
 
 
-## Exercise 3: Fit a linear regression using glucose as response and BMI as variable. Interpret this finding.
+## Exercise 3: Fit a linear regression using glucose as dependent variable and BMI as variable. Interpret this finding.
 ```{r}
 # Insert your code here
 ```
 
-## Multiple linear regression (2 predictor variables)
+## Multiple linear regression (>1 independent variable)
 
+We can include other independent variables e.g. age into our model to see their effects.
 ```{r}
-fit.insulin_glucose.age <- glm(insulin ~ glucose + age, data =pima)
-summary(fit.insulin_glucose.age)$coef
+fit.insulin_glucose.age <- lm(insulin ~ glucose + age, data =pima)
+summary(fit.insulin_glucose.age)
 confint(fit.insulin_glucose.age)
+
+anova(fit.insulin_glucose, fit.insulin_glucose.age) # direct comparison of two nested models using F-test
 ```
 Similar to interpretation above on glucose, with the addition that there is not enough evidence that the association with age is not caused by random chance. Whilst on average, every unit of age increases glucose level by 0.23, the 95% confidence interval indicates a large uncertainty in the estimate (includes negative and positive values).
 
+To compare these two models, we can look at several metrics. In terms of R-squared value, this model (0.338) explains more variance in the data compared to the model with glucose alone (0.337), however after adjusting for the number of independent variables, it is actually a worse model. The residual standard error (RSE) gives a measure of error of prediction, this model (96.9) is slightly worse than the previous (96.8) as it indicates less error of prediction. Another useful metric is the F-statistic which indicates whether the model provides a better fit to the data than a null model. This model (F-stat=99) is lower than the previous (F-stat=199), which suggest that there is more evidence in the model with glucose compared to this model that the alternative hypothesis is likely true. The ANOVA analysis suggests that the two models are not significantly different. Overall, the evidences suggest that adding age as a variable in the model did not improve the model.
+
+## Modelling interactions
+In addition to fitting a model using more independent variables, we should also consider that sometimes our independent variables have synergistic effects i.e. they depend or have an effect on each other. To model this effect we can use the `*` sign into the formula.
+```{r}
+fit.insulin_glucose.x.age <- lm(insulin ~ glucose * age, data =pima)
+summary(fit.insulin_glucose.x.age)
+confint(fit.insulin_glucose.x.age)
+```
+We can interpret this interaction term (coefficient = -0.016) as having a small negative (and insignificant, p-value=0.29) effect on insulin level with increasing glucose and age.
+
+## Exercise 4: Find the best model by fiting multiple linear regression using glucose as dependent variable. Use various metrics to compare them (adjusted R-squared, RSE, F-statistic, ANOVA).
+```{r}
+# Insert your code here
+```
+
 ## Logistic regression
 
-Logistic regression is a method for modelling the odds of an event happening. We use it when we have a binary outcome.
+Logistic regression is a method for modelling the odds of an event happening. We use it when we have a binary dependent variable i.e. discrete dependent variable with only two values. We can use `glm` to fit logistic regression, we need to give it minimally two objects: (1) a formula specifying the model, and (2) the family. Like `lm` The formula is constructed using `y ~ x`, where `y` is the dependent variable and the `x` is the independent variable(s). The family is by default "gaussian" for linear regression, but for logistic regression must be switched to "binomial". For more arguments see `?glm`.
 
 ```{r}
 # Fit logistic regression model from binomial family
 fit.test_glucose <- glm(test ~ glucose,family =  binomial, pima)
-summary(fit.test_glucose)$coef
-
+summary(fit.test_glucose)
 
 newdat <- data.frame(glucose=seq(min(pima$glucose), max(pima$glucose),len=100))
 newdat$test = predict(fit.test_glucose, newdata=newdat, type="response")
 
 plot(test ~ glucose, data=pima,
-     main = "Logistic regression using diabetes test as response and glucose as variable",
+     main = "Logistic regression using diabetes test as dependent variable and glucose as variable",
      xlab = "Glucose level (mg/dL)",
      ylab = "Probability of testing positive",
      pch = 16,
      col = viridis(2)[pima$test])
 lines(test ~ glucose, newdat, lwd = 2)
 ```
+
 In logistic regression, we quantify and report the effects of different variables using *Odds Ratio (OR)* which is the expected odds of the event happening under one condition relative to another.
 ```{r}
 # OR = exp(LO)
@@ -140,7 +158,27 @@ exp(LO)
 ```
 This means that for every unit increase in glucose level, we expect the odds of the event to increae by 1.04, or a 4% increase.
 
-## Exercise 4: Fit a logistic regression with the result of the diabetes test as the response and all other variables as predictors. Interpret the findings.
+## Comparing Logistic regression models
+
+Unlike linear regression, metrics for comparing logistic regression models are slightly different. We can use McFadden's (pseudo) R-squared which is interpreted in a similar way to the classic R-squared. The AIC measures the trade-off between improving predictability of model and adding parameters. Between nested models, smaller AIC values are better. The null and residual deviances indicate the how well the model fit the data, in a good model you would expect the residual deviance to be smaller than the null. Furthermore, we can test whether the difference in deviance between two models is significant using a chi-squared test or likelihood ratio test (LRT). 
+```{r}
+### McFadden's (pseudo) R-squared
+fit.test_glucose <- glm(test ~ glucose,family =  binomial, pima)
+nullmod <- glm(test~1, family=binomial, pima)
+1-logLik(fit.test_glucose)/logLik(nullmod)
+
+fit.test_glucose.x.bmi <- glm(test ~ glucose*bmi,family =  binomial, pima)
+nullmod <- glm(test~1, family=binomial, pima)
+1-logLik(fit.test_glucose.x.bmi)/logLik(nullmod)
+
+summary(fit.test_glucose)
+summary(fit.test_glucose.x.bmi)
+
+anova(fit.test_glucose.x.bmi, fit.test_glucose, test="LRT")
+```
+Taken together, the McFadden's R-squared, AIC, deviance test indicate that the model containing interaction term between glucose and bmi is better than the model with glucose alone. *Note: The objective of this course is not to fully understand how these metrics are developed, but rather to understand how these metrics are used to inform which model is better.*
+
+## Exercise 5: Fit a logistic regression with the result of the diabetes test as the dependent variable and all other variables as independents. Interpret the findings, and compare to see if it is the better model.
 ```{r}
 
 ```
@@ -171,7 +209,7 @@ What is the difference in the log-odds of testing positive for diabetes for a wo
 ```
 
 
-## Exercise
+## Exercise 6
 1. What is the effect of BMI on diabetes status in this model (interpret the log-odds, confidence interval and p-value)?
 2. What is the difference in the log-odds of testing positive for diabetes for a woman with a BMI at the first quartile compared with a woman at the third quartile, assuming that all other factors are held constant?
 3. Then calculate the associated odds ratio value, and give a 95% confidence interval for this odds ratio.
