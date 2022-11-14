@@ -1,0 +1,183 @@
+---
+title: "Data Analysis of the Pima Indians Diabetes Dataset using Regressions in R"
+author: "Fernando Guntoro and Sonja Tang"
+date: "`r Sys.Date()`"
+output: 
+  html_document:
+    code_download: true
+    toc: true
+    toc_float: true
+    df_print: paged
+---
+
+## Loading our Pima dataset
+
+Firstly, let's set up the library, load and do a rough clean up of the Pima dataset from the "faraway" R package.
+
+```{r Library and load data, message=F, warning=F}
+list.of.packages <- c("faraway", "viridis", "tidyverse", "corrplot")
+new.packages <- list.of.packages[!(list.of.packages %in% installed.packages()[,"Package"])]
+if(length(new.packages)) install.packages(new.packages)
+
+library(faraway)
+library(viridis)
+library(tidyverse)
+library(corrplot)
+data(pima)
+pima <- pima
+pima$bmi[pima$bmi == 0] <- NA
+pima$diastolic[pima$diastolic == 0] <- NA
+pima$glucose[pima$glucose == 0] <- NA
+pima$insulin[pima$insulin == 0] <- NA
+pima$triceps[pima$triceps == 0] <- NA
+
+pima <- na.omit(pima) # remove all observations containing NA values
+
+str(pima)
+```
+After loading and cleaning, there are 392 individuals in the study, and 9 variables.
+
+To check the what these variables mean, we can use the help `?` function.
+```{r}
+?pima
+```
+
+## Basic data exploration pt1
+
+Let's quickly look at these variables by plotting a simple histogram to visualize their distributions.
+```{r}
+hist(pima$age,
+     main="Number of participants by age in the Pima dataset",
+  xlab="Age",
+  ylab="No. of people",
+  col=viridis(1)
+)
+```
+
+## Exercise 1: Create multiple histogram plots showing the distributions of all variables
+```{r}
+# Insert your code here
+```
+
+## Basic data exploration pt2
+
+Let's explore how variables are associated with each other by visualizing them in a scatterplot.
+
+```{r}
+plot(pima$glucose, pima$insulin, main = "Scatterplot of insulin and glucose",
+     xlab = "Glucose level (mg/dL)",
+     ylab = "Insulin level (mu U/ml)",
+     pch = 16,
+     col = viridis(2)[pima$test])
+```
+
+## Exercise 2: Create a scatterplot using glucose on the y-axis and BMI on the x-axis.
+```{r}
+# Insert your code here
+```
+
+
+## Simple linear regression (1 predictor variable)
+
+We can use `glm` to fit generalized linear models. We need to give it minimally two objects: (1) a formula specifying the model, and (2) the family.
+The formula is constructed using `y ~ x`, where `y` is the outcome or respose variable and the `x` is the predictor variable(s). The family is by default "gaussian" for linear regression but can be switched to "binomial" for logistic regression, or "poisson", etc as appropriate. For more arguments see `?glm`.
+
+```{r}
+fit.insulin_glucose <- glm(insulin ~ glucose, data=pima) # fit model
+summary(fit.insulin_glucose)$coef # get slope (beta coefficient)
+confint(fit.insulin_glucose) # get confidence interval
+plot(insulin ~ glucose, data=pima,
+     main = "Linear regression using insulin as response and glucose as variable",
+     xlab = "Glucose level (mg/dL)",
+     ylab = "Insulin level (mu U/ml)",
+     pch = 16,
+     col = viridis(2)[pima$test])
+abline(fit.insulin_glucose)
+```
+This tells us that the mean insulin level when glucose level = 0 is -118, with reasonable evidence that the interval -157 to -72 contains true intercept value (not informative biologically). For every unit increase of glucose, we expect the individual's insulin level to increase by 2.23 with a 95% confidence interval of 1.92 and 2.55, which is a relatively large effect, with a strong evidence (p-value=8.51e-37). 
+
+
+## Exercise 3: Fit a linear regression using glucose as response and BMI as variable. Interpret this finding.
+```{r}
+# Insert your code here
+```
+
+## Multiple linear regression (2 predictor variables)
+
+```{r}
+fit.insulin_glucose.age <- glm(insulin ~ glucose + age, data =pima)
+summary(fit.insulin_glucose.age)$coef
+confint(fit.insulin_glucose.age)
+```
+Similar to interpretation above on glucose, with the addition that there is not enough evidence that the association with age is not caused by random chance. Whilst on average, every unit of age increases glucose level by 0.23, the 95% confidence interval indicates a large uncertainty in the estimate (includes negative and positive values).
+
+## Logistic regression
+
+Logistic regression is a method for modelling the odds of an event happening. We use it when we have a binary outcome.
+
+```{r}
+# Fit logistic regression model from binomial family
+fit.test_glucose <- glm(test ~ glucose,family =  binomial, pima)
+summary(fit.test_glucose)$coef
+
+
+newdat <- data.frame(glucose=seq(min(pima$glucose), max(pima$glucose),len=100))
+newdat$test = predict(fit.test_glucose, newdata=newdat, type="response")
+
+plot(test ~ glucose, data=pima,
+     main = "Logistic regression using diabetes test as response and glucose as variable",
+     xlab = "Glucose level (mg/dL)",
+     ylab = "Probability of testing positive",
+     pch = 16,
+     col = viridis(2)[pima$test])
+lines(test ~ glucose, newdat, lwd = 2)
+```
+In logistic regression, we quantify and report the effects of different variables using *Odds Ratio (OR)* which is the expected odds of the event happening under one condition relative to another.
+```{r}
+# OR = exp(LO)
+LO <- 0.04242099
+exp(LO)
+```
+This means that for every unit increase in glucose level, we expect the odds of the event to increae by 1.04, or a 4% increase.
+
+## Exercise 4: Fit a logistic regression with the result of the diabetes test as the response and all other variables as predictors. Interpret the findings.
+```{r}
+
+```
+
+
+## Example
+What is the difference in the log-odds of testing positive for diabetes for a woman with a glucose level at the third quartile compared with the average woman, assuming that all other factors are held constant? Then calculate the associated odds ratio value, and give a 95% confidence interval for this odds ratio.
+```{r}
+# summary(pima$glucose) # mean = 122.6, 3rd quartile = 143.0
+# 
+# fit.summary <- summary(fit.all)
+# fit.summary
+# 
+# # Log-odds difference
+# LO <- coef(fit.all)["glucose"]
+# 
+# diff = LO * (143.0 - 122.6)
+# 
+# # Estimated log-odds ratio
+# exp(diff)
+# 
+# # 95% conf int for odds ratio
+# conf_int_odds <- cbind(diff - 1.96*fit.summary$coefficients[3,2] * (143.0 - 122.6),
+#                        diff + 1.96*fit.summary$coefficients[3,2] * (143.0 - 122.6))
+# 
+# # 95% conf int for estimated odds ratio
+# exp(conf_int_odds)
+```
+
+
+## Exercise
+1. What is the effect of BMI on diabetes status in this model (interpret the log-odds, confidence interval and p-value)?
+2. What is the difference in the log-odds of testing positive for diabetes for a woman with a BMI at the first quartile compared with a woman at the third quartile, assuming that all other factors are held constant?
+3. Then calculate the associated odds ratio value, and give a 95% confidence interval for this odds ratio.
+
+```{r}
+# Insert your code here
+
+```
+
