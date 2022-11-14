@@ -29,3 +29,4 @@ library(viridis)
 library(tidyverse)
 library(corrplot)
 ```
+Alternatively, you can run the notebook online using Binder: [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/ImperialCollegeLondon/RCDS-regression-modelling/HEAD?urlpath=rstudio)
