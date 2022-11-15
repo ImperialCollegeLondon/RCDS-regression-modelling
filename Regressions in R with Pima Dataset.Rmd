@@ -101,6 +101,22 @@ This tells us that the mean insulin level when glucose level = 0 is -118, with r
 # Insert your code here
 ```
 
+## Visualizing model properties and assumptions
+
+```{r}
+par(mfrow=c(2,2)) ## show 2 by 2 plot
+plot(fit.insulin_glucose)
+par(mfrow=c(1,1))   ## reset to show 1 plot at a time
+```
+
+`Residuals vs Fitted` inspects if there is non-linear trend; residuals should be randomly distributed around zero.
+
+`Normal Q-Q` inspects if your residuals are normally distributed i.e. should be dotted around diagonal line
+
+`Scale-Location` similar to Residuals vs Fitted; help identify heteroskedasticity
+
+`Residuals vs Leverage`detects outliers.
+
 ## Multiple linear regression (>1 independent variable)
 
 We can include other independent variables e.g. age into our model to see their effects.
@@ -180,12 +196,13 @@ Taken together, the McFadden's R-squared, AIC, deviance test indicate that the m
 
 ## Exercise 5: Fit a logistic regression with the result of the diabetes test as the dependent variable and all other variables as independents. Interpret the findings, and compare to see if it is the better model.
 ```{r}
-
+# Insert your code here
+# fit.all <- glm()
 ```
 
 
 ## Example
-What is the difference in the log-odds of testing positive for diabetes for a woman with a glucose level at the third quartile compared with the average woman, assuming that all other factors are held constant? Then calculate the associated odds ratio value, and give a 95% confidence interval for this odds ratio.
+What is the difference in the log-odds of testing positive for diabetes for a woman with a glucose level at the third quartile compared with a woman with an average glucose, assuming that all other factors are held constant? Then calculate the associated odds ratio value, and give a 95% confidence interval for this odds ratio.
 ```{r}
 # summary(pima$glucose) # mean = 122.6, 3rd quartile = 143.0
 # 
@@ -211,7 +228,7 @@ What is the difference in the log-odds of testing positive for diabetes for a wo
 
 ## Exercise 6
 1. What is the effect of BMI on diabetes status in this model (interpret the log-odds, confidence interval and p-value)?
-2. What is the difference in the log-odds of testing positive for diabetes for a woman with a BMI at the first quartile compared with a woman at the third quartile, assuming that all other factors are held constant?
+2. What is the difference in the log-odds of testing positive for diabetes for a woman with a BMI at the third quartile compared with a woman with an average BMI , assuming that all other factors are held constant?
 3. Then calculate the associated odds ratio value, and give a 95% confidence interval for this odds ratio.
 
 ```{r}
