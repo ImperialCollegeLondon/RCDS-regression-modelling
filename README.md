@@ -20,14 +20,11 @@ We will be working with the open source (meaning free :partying_face:) programmi
 ## 3. Course materials :book:
 Please run the following code to install the required packages for the session:
 ```r
-list.of.packages <- c("faraway", "viridis", "tidyverse", "corrplot")
+list.of.packages <- c("faraway")
 new.packages <- list.of.packages[!(list.of.packages %in% installed.packages()[,"Package"])]
 if(length(new.packages)) install.packages(new.packages)
 
 library(faraway)
-library(viridis)
-library(tidyverse)
-library(corrplot)
 ```
 Alternatively, you can run the notebook online using Binder: [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/ImperialCollegeLondon/RCDS-regression-modelling/HEAD?urlpath=rstudio)
 
