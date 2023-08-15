@@ -1,6 +1,6 @@
 # Hi! Welcome to the Regression Modelling in R course! :grinning: :chart_with_upwards_trend:
 
-#### We're Sonja and Fernando, two PhD students in the Imperial School of Public Health :hospital:, and we'll be teaching this interactive, standalone, and roughly 3 hour course for the Graduate School in-person in the Central Library :books:. We highly recommend that you bring your own laptop to class and follow the pre-course setup below!
+#### We're Sonja and Fernando, two PhD students at the Imperial School of Public Health :hospital:, and we'll be teaching this interactive, standalone, and roughly 3-hour course for the Graduate School in-person in the Central Library :books:. We highly recommend that you bring your own laptop to class and follow the pre-course setup below!
 
 ## 1. Learning outcomes :bulb:
 By the end of this course, we hope that you will be able to:
