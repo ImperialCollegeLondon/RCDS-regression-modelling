@@ -8,7 +8,6 @@ We will be working with the open-source (a.k.a. free :partying_face:) programmin
 :arrow_right: R (download the version that matches your operating system): https://cran.ma.imperial.ac.uk/  
 :arrow_right: RStudio Desktop (the free version): https://posit.co/downloads/
 
-## 2. Course materials :book:
 Please copy-paste the following code into your "Console" in RStudio and run it by hitting "Enter" to install the required packages for the session:
 ```r
 list.of.packages <- c("faraway")
@@ -19,10 +18,10 @@ library(faraway)
 ```
 Alternatively, you can run the notebook online using Binder (although we do not recommend doing this using the classroom computers as they're very slow): [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/ImperialCollegeLondon/RCDS-regression-modelling/HEAD?urlpath=rstudio)
 
-## 3. Literature workshop :page_facing_up:
-For the workshop, we will be interpreting the results from this paper by Sin *et al* titled "Mental health and caregiving experiences of family carers supporting people with psychosis". We will give you enough time to read through the abstract and interpret the results tables during the session, but you may get a headstart by doing this in advance: [link to paper](https://www.cambridge.org/core/journals/epidemiology-and-psychiatric-sciences/article/mental-health-and-caregiving-experiences-of-family-carers-supporting-people-with-psychosis/FF705DECFAC216D777B834E5D2A0180F).
+## 2. Literature workshop :page_facing_up:
+For the workshop, we will be interpreting the results from this paper by Sin *et al.* titled "Mental health and caregiving experiences of family carers supporting people with psychosis". We will give you enough time to read through the abstract and interpret the result tables during the session, but you may get a headstart by doing this in advance: [link to paper](https://www.cambridge.org/core/journals/epidemiology-and-psychiatric-sciences/article/mental-health-and-caregiving-experiences-of-family-carers-supporting-people-with-psychosis/FF705DECFAC216D777B834E5D2A0180F).
 
-## 4. Learning outcomes :bulb:
+## 3. Learning outcomes :bulb:
 By the end of this course, we hope that you will be able to:
 1. Define and explain fundamental concepts of regression modelling.
 2. Formulate, apply, and compare regression models based on a research question.
