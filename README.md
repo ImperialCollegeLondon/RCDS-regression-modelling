@@ -3,7 +3,9 @@
 #### We're Sonja and Fernando, two PhD students at the Imperial School of Public Health :hospital:, and we'll be teaching this interactive, standalone, and roughly 3-hour course for the Graduate School in-person in the Central Library :books:. We highly recommend that you bring your own laptop :computer: to class and follow the pre-course setup below before coming to the workshop!
 
 ## 1. Pre-course setup :computer:
-We will be working with the open-source (a.k.a. free :partying_face:) programming language "R" and the integrated development environment RStudio. Please download and install these in advance of the session to save yourself the hassle during the course:
+Hit the :green_square: <> Code button above and select "Download ZIP" to get all of the contents of this repository (Powerpoint slides, R code, HTML document, and other fluff). 
+
+Next, as we will be working with the open-source (a.k.a. free :partying_face:) programming language "R" and the integrated development environment RStudio. Please download and install these in advance of the session to save yourself the hassle during the course:
 
 :arrow_right: R (download the version that matches your operating system): https://cran.ma.imperial.ac.uk/  
 :arrow_right: RStudio Desktop (the free version): https://posit.co/downloads/
