@@ -1,13 +1,13 @@
 # Hi! Welcome to the Regression Modelling in R course! :grinning: :chart_with_upwards_trend:
 
-#### We're Sonja and Fernando, two PhD students at the Imperial School of Public Health :hospital:, and we'll be teaching this interactive, standalone, and roughly 3-hour course for the Graduate School in-person in the Central Library :books:. We highly recommend that you bring your own laptop  to class :computer: and follow the pre-course setup below before coming to the workshop!
+#### We're Sonja and Fernando, two PhD students at the Imperial School of Public Health :hospital:, and we'll be teaching this interactive, standalone, and roughly 3-hour course for the Graduate School in-person in the Central Library :books:. We highly recommend that you bring your own laptop :computer: to class and follow the pre-course setup below before coming to the workshop!
 
 ## 1. Learning outcomes :bulb:
 By the end of this course, we hope that you will be able to:
-:one: Define and explain fundamental concepts of regression modelling. 
-:two: Formulate, apply, and compare regression models based on a research question.
-:three: Estimate regression coefficients using R and interpret them in the context of the question. 
-:four: Interpret regression model results from scientific papers.
+1. Define and explain fundamental concepts of regression modelling.
+2. Formulate, apply, and compare regression models based on a research question.
+3. Estimate regression coefficients using R and interpret them in the context of the question.
+4. Interpret regression model results from scientific papers.
 
 ## 2. Pre-course setup :computer:
 We will be working with the open-source (a.k.a. free :partying_face:) programming language "R" and the integrated development environment (IDE) RStudio. Please download and install these in advance of the session to save yourself the hassle during the course:
