@@ -1,14 +1,13 @@
 # Hi! Welcome to the Regression Modelling in R course! :grinning: :chart_with_upwards_trend:
 
-#### We're Sonja and Fernando, two PhD students at the Imperial School of Public Health :hospital:, and we'll be teaching this interactive, standalone, and roughly 3-hour course for the Graduate School in-person in the Central Library :books:. We highly recommend that you bring your own laptop to class and follow the pre-course setup below!
+#### We're Sonja and Fernando, two PhD students at the Imperial School of Public Health :hospital:, and we'll be teaching this interactive, standalone, and roughly 3-hour course for the Graduate School in-person in the Central Library :books:. We highly recommend that you bring your own laptop  to class :computer: and follow the pre-course setup below before coming to the workshop!
 
 ## 1. Learning outcomes :bulb:
 By the end of this course, we hope that you will be able to:
-1. **Identify** the correlation coefficient as a single measure of a linear association.
-2. **Apply** general linear models to model a response variable in terms of a single or multiple variables.
-3. **Evaluate** model fitness by comparing the results produced by the model with your data.
-4. **Present** model fitness using data visualisation techniques.
-5. **Interpret** regression model results from scientific papers.
+:one: Define and explain fundamental concepts of regression modelling. 
+:two: Formulate, apply, and compare regression models based on a research question.
+:three: Estimate regression coefficients using R and interpret them in the context of the question. 
+:four: Interpret regression model results from scientific papers.
 
 ## 2. Pre-course setup :computer:
 We will be working with the open-source (a.k.a. free :partying_face:) programming language "R" and the integrated development environment (IDE) RStudio. Please download and install these in advance of the session to save yourself the hassle during the course:
