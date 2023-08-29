@@ -8,7 +8,7 @@ We will be working with the open-source (a.k.a. free :partying_face:) programmin
 :arrow_right: R (download the version that matches your operating system): https://cran.ma.imperial.ac.uk/  
 :arrow_right: RStudio Desktop (the free version): https://posit.co/downloads/
 
-Please copy-paste the following code into your "Console" in RStudio and run it by hitting "Enter" to install the required packages for the session:
+Once downloaded, please copy and paste the following code into your "Console" in RStudio and run it by hitting "Enter" to install the required packages for the session:
 ```r
 list.of.packages <- c("faraway")
 new.packages <- list.of.packages[!(list.of.packages %in% installed.packages()[,"Package"])]
@@ -16,7 +16,7 @@ if(length(new.packages)) install.packages(new.packages)
 
 library(faraway)
 ```
-Alternatively, you can run the notebook online using Binder (although we do not recommend doing this using the classroom computers as they're very slow): [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/ImperialCollegeLondon/RCDS-regression-modelling/HEAD?urlpath=rstudio)
+Alternatively, you can run the R code that we'll be working with online using Binder (although we do not recommend doing this using the classroom computers as they're very slow): [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/ImperialCollegeLondon/RCDS-regression-modelling/HEAD?urlpath=rstudio)
 
 ## 2. Literature workshop :page_facing_up:
 For the workshop, we will be interpreting the results from this paper by Sin *et al.* titled "Mental health and caregiving experiences of family carers supporting people with psychosis". We will give you enough time to read through the abstract and interpret the result tables during the session, but you may get a headstart by doing this in advance: [link to paper](https://www.cambridge.org/core/journals/epidemiology-and-psychiatric-sciences/article/mental-health-and-caregiving-experiences-of-family-carers-supporting-people-with-psychosis/FF705DECFAC216D777B834E5D2A0180F).
