@@ -21,7 +21,7 @@ library(faraway)
 Alternatively, you can run the R code that we'll be working with online using Binder (although we do not recommend doing this using the classroom computers as they're very slow): [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/ImperialCollegeLondon/RCDS-regression-modelling/HEAD?urlpath=rstudio)
 
 ## 2. Literature workshop :page_facing_up:
-For the workshop, we will be interpreting the results from this paper by Sin *et al.* titled "Mental health and caregiving experiences of family carers supporting people with psychosis". We will give you enough time to read through the abstract and interpret the result tables during the session, but you may get a headstart by doing this in advance: [link to paper](https://www.cambridge.org/core/journals/epidemiology-and-psychiatric-sciences/article/mental-health-and-caregiving-experiences-of-family-carers-supporting-people-with-psychosis/FF705DECFAC216D777B834E5D2A0180F).
+For the workshop, we will be interpreting the results from this paper by Sin *et al.* titled ["Mental health and caregiving experiences of family carers supporting people with psychosis"](https://www.cambridge.org/core/journals/epidemiology-and-psychiatric-sciences/article/mental-health-and-caregiving-experiences-of-family-carers-supporting-people-with-psychosis/FF705DECFAC216D777B834E5D2A0180F). We will give you enough time to read through the abstract and interpret the result tables during the session, but you may get a headstart by doing this in advance.
 
 ## 3. Learning outcomes :bulb:
 By the end of this course, we hope that you will be able to:
