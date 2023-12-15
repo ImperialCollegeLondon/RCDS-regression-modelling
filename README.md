@@ -7,8 +7,8 @@ Hit the :green_square: <> Code button above and select "Download ZIP" to get all
 
 Next, as we will be working with the open-source (a.k.a. free :partying_face:) programming language "R" and the integrated development environment RStudio. Please download and install these in advance of the session to save yourself the hassle during the course:
 
-:arrow_right: R (download the version that matches your operating system): https://cran.ma.imperial.ac.uk/  
-:arrow_right: RStudio Desktop (the free version): https://posit.co/downloads/
+➡️ R (download the version that matches your operating system): https://cran.ma.imperial.ac.uk/  
+➡️ RStudio Desktop (the free version): https://posit.co/downloads/
 
 Once downloaded, please copy and paste the following code into your "Console" in RStudio and run it by hitting "Enter" to install the required packages for the session:
 ```r
