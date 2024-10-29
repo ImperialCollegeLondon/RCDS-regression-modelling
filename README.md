@@ -1,6 +1,6 @@
 # Hi! Welcome to the Regression Modelling in R course! :grinning: :chart_with_upwards_trend:
 
-#### We're Sonja and Fernando, two PhD students at the Imperial School of Public Health :hospital:, and we'll be teaching this interactive, standalone, and roughly 3-hour course for the Graduate School in-person in the Central Library :books:. We highly recommend that you bring your own laptop :computer: to class and follow the pre-course setup below before coming to the workshop!
+#### My name is Fernando, and I'm a final year PhD student at the Imperial School of Public Health :hospital:. I hope you're looking forward to this interactive, standalone, and roughly 3-hour course for the Graduate School in-person in the Central Library :books:. I highly recommend that you bring your own laptop :computer: to class and follow the pre-course setup below before coming to the workshop!
 
 ## 1. Pre-course setup :computer:
 Hit the :green_square: <> Code button above and select "Download ZIP" to get all of the contents of this repository (Powerpoint slides, R code, HTML document, and other fluff). Unzip the folder and pull the unzipped folder out of your "Downloads" folder (e.g. onto your "Desktop").
@@ -29,3 +29,6 @@ By the end of this course, we hope that you will be able to:
 2. Formulate, apply, and compare regression models based on a research question.
 3. Estimate regression coefficients using R and interpret them in the context of the question.
 4. Interpret regression model results from scientific papers.
+
+## 4. Acknowledgment
+Sonja Tang for her contribution in the materials and delivery of the course in 2022-2024.
