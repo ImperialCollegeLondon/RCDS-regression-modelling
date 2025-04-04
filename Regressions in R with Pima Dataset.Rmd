@@ -35,7 +35,7 @@ str(pima)
 ```
 After loading and cleaning, there are 392 individuals in the study, and 9 variables.
 
-To check the what these variables mean, we can use the help `?` function.
+To check what these variables mean, we can use the help `?` function.
 ```{r}
 ?pima
 ```
@@ -45,16 +45,12 @@ To check the what these variables mean, we can use the help `?` function.
 Let's explore how variables are related with each other by visualizing them in a scatterplot.
 
 ```{r}
-plot(pima$glucose, pima$insulin, main = "Scatterplot of insulin and glucose",
-     xlab = "Glucose level (mg/dL)",
-     ylab = "Insulin level (mu U/ml)",
-     pch = 16)
+plot(pima$glucose, pima$insulin)
 ```
 
 ## Exercise 1: Create a scatterplot using glucose on the y-axis and BMI on the x-axis.
 ```{r}
 # Insert your code here
-plot(pima$bmi, pima$glucose, main = "Scatterplot of BMI and glucose")
 ```
 
 ## Simple linear regression (1 independent variable)
@@ -74,15 +70,12 @@ plot(insulin ~ glucose, data=pima,
      pch = 16)
 abline(fit.insulin_glucose)
 ```
-This tells us that the mean insulin level when glucose level = 0 is -118, with reasonable evidence that the interval -157 to -72 contains true intercept value (not informative biologically). For every unit increase of glucose, we expect the individual's insulin level to increase by 2.23 with a 95% confidence interval of 1.92 and 2.55, which is a relatively large effect, with a strong evidence (p-value=). What does the confidence interval mean?
+This tells us that the mean insulin level when glucose level = 0 is -118, with reasonable evidence that the interval -157 to -72 contains true intercept value (not informative biologically). For every unit increase of glucose, we expect the individual's insulin level to increase by 2.23 with a 95% confidence interval of 1.92 and 2.55, which is a relatively large effect, with a strong evidence (p-value near zero).
 
 
 ## Exercise 2: Fit a linear regression using glucose as dependent variable and BMI as independent variable. Think about which sides the variables go. Interpret this finding.
 ```{r}
 # Insert your code here
-fit.glucose_bmi <- lm(glucose ~ bmi, data=pima) # fit model
-summary(fit.glucose_bmi) # get slope (beta coefficient) and p-values (Pr(>|t|))
-confint(fit.glucose_bmi) # get confidence interval
 ```
 
 ## Visualizing model properties and assumptions
@@ -106,14 +99,18 @@ par(mfrow=c(1,1))   ## reset to show 1 plot at a time
 We can include other independent variables e.g. age into our model to see their effects.
 ```{r}
 fit.insulin_glucose.age <- lm(insulin ~ glucose + age, data =pima)
+summary(fit.insulin_glucose)
 summary(fit.insulin_glucose.age)
 confint(fit.insulin_glucose.age)
 
 anova(fit.insulin_glucose, fit.insulin_glucose.age) # direct comparison of two nested models using F-test
+
+fit <- lm(insulin ~ glucose + age + diastolic + triceps, data =pima)
+anova(fit, fit.insulin_glucose.age) # direct comparison of two nested models using F-test
 ```
 Similar to interpretation above on glucose, with the addition that there is not enough evidence that the association with age is not caused by random chance. Whilst on average, every unit of age increases glucose level by 0.23, the 95% confidence interval indicates a large uncertainty in the estimate (includes negative and positive values).
 
-To compare these two models, we can look at several metrics. In terms of R-squared value, this model (0.338) explains more variance in the data compared to the model with glucose alone (0.337), however after adjusting for the number of independent variables, it is actually a worse model. The residual standard error (RSE) gives a measure of error of prediction, this model (96.9) is slightly worse than the previous (96.8) as it indicates less error of prediction. Another useful metric is the F-statistic which indicates whether the model provides a better fit to the data than a null model. This model (F-stat=99) is lower than the previous (F-stat=199), which suggest that there is more evidence in the model with glucose compared to this model that the alternative hypothesis is likely true. The ANOVA analysis suggests that the two models are not significantly different. Overall, the evidences suggest that adding age as a variable in the model did not improve the model.
+To compare these two models, we can look at several metrics. In terms of R-squared value, this model (0.338) explains more variance in the data compared to the model with glucose alone (0.337), however after adjusting for the number of independent variables, it is actually a worse model. The residual standard error (RSE) gives a measure of error of prediction, this model (96.9) is slightly worse than the previous (96.8) as it indicates larger error of prediction. Another useful metric is the F-statistic which indicates whether the model provides a better fit to the data than a null model. This model (F-stat=99) is lower than the previous (F-stat=199), which suggest that there is more evidence in the model with glucose compared to this model that the alternative hypothesis is likely true. The ANOVA analysis suggests that the two models are not significantly different. Overall, the evidences suggest that adding age as a variable in the model did not improve the model.
 
 ## Modelling interactions
 In addition to fitting a model using more independent variables, we should also consider that sometimes our independent variables have synergistic effects i.e. they depend or have an effect on each other. To model this effect we can use the `*` sign into the formula.
@@ -121,6 +118,9 @@ In addition to fitting a model using more independent variables, we should also 
 fit.insulin_glucose.x.age <- lm(insulin ~ glucose * age , data =pima) #same as formula = insulin ~ glucose + age + glucose:age
 summary(fit.insulin_glucose.x.age)
 confint(fit.insulin_glucose.x.age)
+
+fit.x <- lm(insulin ~ . * ., data = pima)
+summary(fit.x)
 ```
 insulin = intercept +  b.glucose * glucose + b.age * age + b.glucose:age * glucose * age
 
@@ -129,9 +129,6 @@ We can interpret this interaction term (coefficient = -0.016) as having a small 
 ## Exercise 3: Find the best model by fiting multiple linear regression using glucose as dependent variable. Use various metrics to compare them (adjusted R-squared, RSE, F-statistic, ANOVA).
 ```{r}
 # Insert your code here
-fit.all <- lm(glucose ~ . , data =pima)
-summary(fit.all)
-confint(fit.all)
 ```
 
 ## Logistic regression
@@ -161,6 +158,9 @@ In logistic regression, we quantify and report the effects of different variable
 # OR = exp(LO)
 LO <- 0.04242099
 exp(LO)
+
+exp(confint(fit.test_glucose))
+
 ```
 This means that for every unit increase in glucose level, we expect the odds of the event to increase by 1.04, or a 4% increase.
 
@@ -187,9 +187,6 @@ Taken together, the McFadden's R-squared, AIC, deviance test indicate that the m
 ## Exercise 4: Fit a logistic regression with the result of the diabetes test as the dependent variable and all other variables as independent. Interpret the findings, and compare to see if it is the better model than `glucose*bmi` model.
 ```{r}
 # Insert your code here
-fit.all <- glm(test ~ ., family = binomial, pima)
-summary(fit.all)
-anova(fit.test_glucose.x.bmi, fit.all, test = "LRT")
 ```
 
 
